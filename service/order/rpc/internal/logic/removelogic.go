@@ -5,8 +5,10 @@ import (
 
 	"mall/service/order/rpc/internal/svc"
 	"mall/service/order/rpc/order"
+	"mall/service/user/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/status"
 )
 
 type RemoveLogic struct {
@@ -25,6 +27,17 @@ func NewRemoveLogic(ctx context.Context, svcCtx *svc.ServiceContext) *RemoveLogi
 
 func (l *RemoveLogic) Remove(in *order.RemoveRequest) (*order.RemoveResponse, error) {
 	// todo: add your logic here and delete this line
-
+	// 订单是否存在
+	res, err := l.svcCtx.OrderModel.FindOne(in.Id)
+	if err != nil {
+		if err == model.ErrNotFound {
+			return nil, status.Error(100, "订单不存在")
+		}
+		return nil, status.Error(500, err.Error())
+	}
+	err = l.svcCtx.OrderModel.Delete(res.Id)
+	if err != nil {
+		return nil, status.Error(500, err.Error())
+	}
 	return &order.RemoveResponse{}, nil
 }
