@@ -3,9 +3,9 @@ package logic
 import (
 	"context"
 
-	"mall/service/order/api/internal/svc"
-	"mall/service/order/api/internal/types"
-	"mall/service/order/rpc/orderclient"
+	"mall/service/pay/api/internal/svc"
+	"mall/service/pay/api/internal/types"
+	"mall/service/pay/rpc/pay"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,18 +26,19 @@ func NewDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) DetailLogic
 
 func (l *DetailLogic) Detail(req types.DetailRequest) (resp *types.DetailResponse, err error) {
 	// todo: add your logic here and delete this line
-	res, err := l.svcCtx.OrderRpc.Detail(l.ctx, &orderclient.DetailRequest{
+	res, err := l.svcCtx.PayRpc.Detail(l.ctx, &pay.DetailRequest{
 		Id: req.Id,
 	})
-
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.DetailResponse{
-		Id:     res.Id,
+		Id:     req.Id,
 		Uid:    res.Uid,
-		Pid:    res.Pid,
+		Oid:    res.Oid,
 		Amount: res.Amount,
+		Source: res.Source,
 		Status: res.Status,
 	}, nil
 }

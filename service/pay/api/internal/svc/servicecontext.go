@@ -1,20 +1,20 @@
 package svc
 
 import (
-	"mall/service/order/api/internal/config"
-	"mall/service/order/rpc/orderclient"
+	"mall/service/pay/api/internal/config"
+	"mall/service/pay/rpc/payclient"
 
 	"github.com/zeromicro/go-zero/zrpc"
 )
 
 type ServiceContext struct {
 	Config config.Config
-	OrderRpc orderclient.Order
+	PayRpc payclient.Pay
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
-		OrderRpc: orderclient.NewOrder(zrpc.MustNewClient(c.OrderRpc)),
+		PayRpc: payclient.NewPay(zrpc.MustNewClient(c.PayRpc)),
 	}
 }

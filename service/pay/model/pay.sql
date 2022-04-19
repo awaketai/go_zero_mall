@@ -1,0 +1,13 @@
+CREATE TABLE `pay`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `uid` BIGINT UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+    `oid` BIGINT UNSIGNED NOT NULL DEFAULT '0' COMMENT '订单id',
+    `amount` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '产品金额',
+    `source` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付方式',
+    `status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '支付状态',
+    `create_time` timestamp null DEFAULT CURRENT_TIMESTAMP,
+    `update_time` timestamp null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(`id`),
+    KEY `idx_uid`(`uid`),
+    KEY `idx_oid`(`oid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
