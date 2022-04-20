@@ -7,7 +7,7 @@ Etcd:
   Key: user.rpc
 
 Mysql:
-  DataSource: root@123456(mysql:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:123456@tcp(mysql:3306)/mall?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 
 CacheRedis:
   - Host: redis:6379
@@ -15,3 +15,16 @@ CacheRedis:
     Pass:
 
 Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe
+
+Auth: true # 开启验证模式
+StrictControl: true # 开启严格模式
+Redis:
+  Key: rpc:auth:user
+  Host: redis:6379
+  Type: node
+  Pass:
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 9090
+  Path: /metrics

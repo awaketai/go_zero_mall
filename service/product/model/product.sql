@@ -3,7 +3,7 @@ CREATE TABLE `product` (
     `name` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '产品名称',
     `desc` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '产品描述',
     `stock` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '产品库存',
-    `amount` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT `产品金额`,
+    `amount` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '产品金额',
     `status` TINYINT(3) NOT NULL DEFAULT '0' COMMENT '产品状态',
     `create_time` timestamp null DEFAULT CURRENT_TIMESTAMP,
     `update_time` timestamp null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

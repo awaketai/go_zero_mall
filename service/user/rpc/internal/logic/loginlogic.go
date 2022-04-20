@@ -2,9 +2,10 @@ package logic
 
 import (
 	"context"
-	"google.golang.org/grpc/status"
 	"mall/common/cryptx"
 	"mall/service/user/model"
+
+	"google.golang.org/grpc/status"
 
 	"mall/service/user/rpc/internal/svc"
 	"mall/service/user/rpc/user"
@@ -37,9 +38,10 @@ func (l *LoginLogic) Login(in *user.LoginRequest) (*user.LoginResponse, error) {
 		return nil, status.Error(500, err.Error())
 	}
 	// 判断密码是否正确
+	pwd := cryptx.PasswordEncrypt(l.svcCtx.Config.Salt, in.Password)
 	password := cryptx.PasswordEncrypt(l.svcCtx.Config.Salt, in.Password)
 	if password != res.Password {
-		return nil, status.Error(100, "密码错误")
+		return nil, status.Error(100, "密码错误 in:"+pwd+" stor:"+res.Password)
 	}
 
 	return &user.LoginResponse{
